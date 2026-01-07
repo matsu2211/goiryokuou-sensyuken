@@ -1,0 +1,5 @@
+{
+  "name": "語彙力王選手権",
+  "description": "A word game where you find words that match a theme and start with a specific letter. This app helps facilitate online play by digitally replicating the process of drawing theme and letter cards.",
+  "requestFramePermissions": []
+}
