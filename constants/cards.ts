@@ -14,7 +14,6 @@ export const TEXT_THEMES: ThemeCard[] = [
   { type: 'text', content: '国の名前' },
   { type: 'text', content: 'スポーツ' },
   { type: 'text', content: 'のりもの' },
-  { type: 'text', content: '色指定' },
   { type: 'text', content: 'キャラクター（漫画やアニメなどの登場人物）' },
   { type: 'text', content: '季節に関係するもの' },
 ];
@@ -32,12 +31,6 @@ export const CHARACTER_COUNT_THEMES: ThemeCard[] = Array(5).fill({
   type: 'text',
   content: '文字数縛り',
   constraintType: 'character_count'
-});
-
-export const NTH_LETTER_THEMES: ThemeCard[] = Array(5).fill({
-  type: 'text',
-  content: '◯番目をねらえ！',
-  constraintType: 'nth_letter'
 });
 
 export const HIRAGANA_LETTERS: LetterCard[] = HIRAGANA_CHARS_FOR_CONSTRAINT.map(char => ({

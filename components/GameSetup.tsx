@@ -12,6 +12,7 @@ const GameSetup: React.FC<GameSetupProps> = ({ onStartGame }) => {
   const [settings, setSettings] = useState<GameSettings>({
     themeType: 'genre',
     timerDuration: 3,
+    showRuby: true,
     customThemes: [],
   });
   const [customThemeInput, setCustomThemeInput] = useState('');
@@ -26,6 +27,10 @@ const GameSetup: React.FC<GameSetupProps> = ({ onStartGame }) => {
     const value = parseInt(e.target.value, 10);
     setSettings(prev => ({...prev, timerDuration: Math.max(1, value || 1)}));
   }
+
+  const handleRubyToggle = () => {
+    setSettings(prev => ({ ...prev, showRuby: !prev.showRuby }));
+  };
   
   const handleAddCustomTheme = () => {
     const newTheme = customThemeInput.trim();
@@ -53,7 +58,6 @@ const GameSetup: React.FC<GameSetupProps> = ({ onStartGame }) => {
     { type: 'genre', label: <>ジャンル<ruby>縛<rt>しば</rt></ruby>り</> },
     { type: 'character', label: <><ruby>文字<rt>もじ</rt></ruby><ruby>縛<rt>しば</rt></ruby>り</> },
     { type: 'character_count', label: <><ruby>文字数<rt>もじすう</rt></ruby><ruby>縛<rt>しば</rt></ruby>り</> },
-    { type: 'nth_letter', label: <>◯<ruby>番目<rt>ばんめ</rt></ruby>をねらえ！</> },
     { type: 'random', label: <>おまかせ</> },
   ];
 
@@ -127,6 +131,27 @@ const GameSetup: React.FC<GameSetupProps> = ({ onStartGame }) => {
               onChange={handleTimerChange}
               className="w-24 p-2 rounded-md bg-stone-100 dark:bg-stone-700 border border-stone-300 dark:border-stone-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             />
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-semibold mb-3 border-b-2 border-stone-200 dark:border-stone-700 pb-2">ルビ（ふりがな）</h3>
+          <div className="flex items-center justify-between p-3">
+            <span className="text-stone-700 dark:text-stone-300 font-medium">ルビを<ruby>表示<rt>ひょうじ</rt></ruby>する</span>
+            <button
+              onClick={handleRubyToggle}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-stone-800 ${
+                settings.showRuby ? 'bg-orange-500' : 'bg-stone-300 dark:bg-stone-600'
+              }`}
+              role="switch"
+              aria-checked={settings.showRuby}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  settings.showRuby ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ export interface CardData {
 
 export interface ThemeCard extends CardData {
   type: 'text' | 'image';
-  constraintType?: 'character' | 'character_count' | 'nth_letter';
+  constraintType?: 'character' | 'character_count';
 }
 
 export interface LetterCard extends CardData {
@@ -16,7 +16,8 @@ export interface LetterCard extends CardData {
 }
 
 export interface GameSettings {
-  themeType: 'genre' | 'character' | 'character_count' | 'nth_letter' | 'random';
+  themeType: 'genre' | 'character' | 'character_count' | 'random';
   timerDuration: number; // in minutes
+  showRuby: boolean;
   customThemes?: string[];
 }

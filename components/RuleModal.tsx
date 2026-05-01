@@ -44,8 +44,6 @@ const RuleContent: React.FC<{ mode: GameSettings['themeType'] }> = ({ mode }) =>
       return <CharacterRule />;
     case 'character_count':
       return <CharacterCountRule />;
-    case 'nth_letter':
-      return <NthLetterRule />;
     case 'random':
       return <RandomRule />;
     default:
@@ -117,52 +115,11 @@ const CharacterCountRule = () => (
   </>
 );
 
-const NthLetterRule = () => (
-  <>
-    <h3 id="rule-title" className="text-2xl font-bold mb-4">◯<ruby>番目<rt>ばんめ</rt></ruby>をねらえ！ ルール</h3>
-    <div className="text-left space-y-4">
-      <p>「お<ruby>題<rt>だい</rt></ruby>」と「ねらう<ruby>順位<rt>じゅんい</rt></ruby>」が<ruby>指定<rt>してい</rt></ruby>されます。<br /><ruby>お題<rt>だい</rt></ruby>に<ruby>合<rt>あ</rt></ruby>う<ruby>言葉<rt>ことば</rt></ruby>の<ruby>中<rt>なか</rt></ruby>で、<ruby>辞書<rt>じしょ</rt></ruby>（あいうえお）の<ruby>順番<rt>じゅんばん</rt></ruby>で、<ruby>指定<rt>してい</rt></ruby>された<ruby>順位<rt>じゅんい</rt></ruby>にきそうな<ruby>言葉<rt>ことば</rt></ruby>を<ruby>答<rt>こた</rt></ruby>えましょう！</p>
-      <div className="text-center font-bold my-4">〈 <ruby>例<rt>れい</rt></ruby> 〉</div>
-      <div className="flex items-center justify-center gap-4">
-        <RuleCard title="お題" content="たべもの" />
-        <div className="text-2xl font-bold">&</div>
-        <RuleCard title="順位" content="1番目" />
-      </div>
-      <div className="text-center text-4xl my-4">↓</div>
-      <div className="text-center">
-        <span className="text-2xl font-bold bg-amber-200 dark:bg-amber-800/50 px-3 py-1 rounded"><ruby>解答例<rt>かいとうれい</rt></ruby>: アイスクリーム</span>
-      </div>
-      <div className="mt-6 border-t border-stone-200 dark:border-stone-700 pt-4 text-sm text-stone-600 dark:text-stone-400">
-        <p className="font-bold mb-2">
-          <ruby>補足<rt>ほそく</rt></ruby>：<ruby>辞書<rt>じしょ</rt></ruby>の<ruby>順番<rt>じゅんばん</rt></ruby>について
-        </p>
-        <p>
-          <ruby>判断<rt>はんだん</rt></ruby>が<ruby>難<rt>むずか</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>の<ruby>順番<rt>じゅんばん</rt></ruby>の<ruby>例<rt>れい</rt></ruby>です。
-        </p>
-        <ul className="list-disc list-inside mt-2 space-y-1 pl-2">
-          <li>
-            「<ruby>ビール<rt>びーる</rt></ruby>」と「<ruby>ビル<rt>びる</rt></ruby>」 → <span className="font-bold">「ビル」</span>が<ruby>先<rt>さき</rt></ruby>
-          </li>
-          <li>
-            「<ruby>しゃけ<rt>しゃけ</rt></ruby>」と「<ruby>しらす<rt>しらす</rt></ruby>」 → <span className="font-bold">「しゃけ」</span>が<ruby>先<rt>さき</rt></ruby>
-          </li>
-          <li>
-            「<ruby>きって<rt>きって</rt></ruby>」と「<ruby>きて<rt>きて</rt></ruby>」 → <span className="font-bold">「きて」</span>が<ruby>先<rt>さき</rt></ruby>（<ruby>小<rt>ちい</rt></ruby>さい「っ」は<ruby>後<rt>あと</rt></ruby>）
-          </li>
-          <li>
-            「<ruby>バッグ<rt>ばっぐ</rt></ruby>」と「<ruby>パック<rt>ぱっく</rt></ruby>」 → <span className="font-bold">「バッグ」</span>が<ruby>先<rt>さき</rt></ruby>（<ruby>濁音<rt>だくおん</rt></ruby>→<ruby>半濁音<rt>はんだくおん</rt></ruby>の<ruby>順<rt>じゅん</rt></ruby>）
-          </li>
-        </ul>
-      </div>
-    </div>
-  </>
-);
-
 const RandomRule = () => (
     <>
     <h3 id="rule-title" className="text-2xl font-bold mb-4">おまかせ ルール</h3>
     <div className="text-left space-y-4">
-      <p>「ジャンル<ruby>縛<rt>しば</rt></ruby>り」「<ruby>文字<rt>もじ</rt></ruby><ruby>縛<rt>しば</rt></ruby>り」「<ruby>文字数<rt>もじすう</rt></ruby><ruby>縛<rt>しば</rt></ruby>り」「◯<ruby>番目<rt>ばんめ</rt></ruby>をねらえ！」の4<ruby>種類<rt>しゅるい</rt></ruby>のカードが<ruby>全部混<rt>ぜんぶま</rt></ruby>ざって、ランダムに<ruby>出題<rt>しゅつだい</rt></ruby>されるモードです。</p>
+      <p>「ジャンル<ruby>縛<rt>しば</rt></ruby>り」「<ruby>文字<rt>もじ</rt></ruby><ruby>縛<rt>しば</rt></ruby>り」「<ruby>文字数<rt>もじすう</rt></ruby><ruby>縛<rt>しば</rt></ruby>り」の3<ruby>種類<rt>しゅるい</rt></ruby>のカードが<ruby>全部混<rt>ぜんぶま</rt></ruby>ざって、ランダムに<ruby>出題<rt>しゅつだい</rt></ruby>されるモードです。</p>
       <p className="text-center font-bold text-lg mt-6">
       <ruby>何<rt>なに</rt></ruby>が<ruby>出<rt>で</rt></ruby>るかはお<ruby>楽<rt>たの</rt></ruby>しみ！
       </p>

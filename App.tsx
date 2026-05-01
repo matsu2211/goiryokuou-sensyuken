@@ -3,7 +3,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { GameSettings, ThemeCard, LetterCard } from './types';
 import GameSetup from './components/GameSetup';
 import GameBoard from './components/GameBoard';
-import { TEXT_THEMES, CHARACTER_THEMES, CHARACTER_COUNT_THEMES, NTH_LETTER_THEMES, HIRAGANA_LETTERS, HIRAGANA_FOR_CONSTRAINT } from './constants/cards';
+import { TEXT_THEMES, CHARACTER_THEMES, CHARACTER_COUNT_THEMES, HIRAGANA_LETTERS, HIRAGANA_FOR_CONSTRAINT } from './constants/cards';
 
 // Fisher-Yates shuffle algorithm
 const shuffle = <T,>(array: T[]): T[] => {
@@ -32,12 +32,6 @@ const App: React.FC = () => {
 
   const isGameStarted = useMemo(() => gameSettings !== null, [gameSettings]);
 
-  const isNthLetterMode = useMemo(() => {
-    if (!gameSettings) return false;
-    return gameSettings.themeType === 'nth_letter' ||
-           (gameSettings.themeType === 'random' && currentTheme?.constraintType === 'nth_letter');
-  }, [gameSettings, currentTheme]);
-
   const startGame = useCallback((settings: GameSettings) => {
     setGameSettings(settings);
 
@@ -55,11 +49,8 @@ const App: React.FC = () => {
         case 'character_count':
           themes = CHARACTER_COUNT_THEMES;
           break;
-        case 'nth_letter':
-          themes = NTH_LETTER_THEMES;
-          break;
         case 'random':
-          themes = [...TEXT_THEMES, ...CHARACTER_THEMES, ...CHARACTER_COUNT_THEMES, ...NTH_LETTER_THEMES];
+          themes = [...TEXT_THEMES, ...CHARACTER_THEMES, ...CHARACTER_COUNT_THEMES];
           break;
         default:
           themes = [];
@@ -94,11 +85,8 @@ const App: React.FC = () => {
             case 'character_count':
               themes = CHARACTER_COUNT_THEMES;
               break;
-            case 'nth_letter':
-              themes = NTH_LETTER_THEMES;
-              break;
             case 'random':
-              themes = [...TEXT_THEMES, ...CHARACTER_THEMES, ...CHARACTER_COUNT_THEMES, ...NTH_LETTER_THEMES];
+              themes = [...TEXT_THEMES, ...CHARACTER_THEMES, ...CHARACTER_COUNT_THEMES];
               break;
             default:
               themes = [];
@@ -125,9 +113,6 @@ const App: React.FC = () => {
           break;
         case 'character_count':
           ruleTitle = '文字数縛り';
-          break;
-        case 'nth_letter':
-          ruleTitle = '◯番目をねらえ！';
           break;
         default:
           ruleTitle = 'ジャンル縛り';
@@ -176,29 +161,6 @@ const App: React.FC = () => {
       setCurrentLetter(charCountCard);
       // 文字カードの山札は消費しない
       setLetterDeck(newLetterDeck);
-    } else if (nextTheme?.constraintType === 'nth_letter') {
-      // Pick a random genre from the standard text themes
-      const randomGenreTheme = TEXT_THEMES[Math.floor(Math.random() * TEXT_THEMES.length)];
-      
-      // Determine a random rank (e.g., 1st to 3rd)
-      const rank = Math.floor(Math.random() * 3) + 1;
-
-      const genreCard: ThemeCard = {
-        type: 'text',
-        content: randomGenreTheme.content,
-        constraintType: 'nth_letter'
-      };
-      
-      const rankCard: LetterCard = {
-        type: 'text',
-        content: `${rank}<ruby>番目<rt>ばんめ</rt></ruby>`
-      };
-      
-      setCurrentTheme(genreCard);
-      setCurrentLetter(rankCard);
-      
-      // Do not consume from the letter deck
-      setLetterDeck(newLetterDeck);
     } else {
       const nextLetter = newLetterDeck.pop() ?? null;
       setCurrentTheme(nextTheme);
@@ -220,7 +182,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+    <div className={`min-h-screen flex flex-col items-center justify-center p-4 ${gameSettings && !gameSettings.showRuby ? 'no-ruby' : ''}`}>
       <header className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">
           <ruby>語彙力<rt>ごいりょく</rt></ruby><ruby>王<rt>おう</rt></ruby><ruby>選手権<rt>せんしゅけん</rt></ruby>
@@ -230,7 +192,7 @@ const App: React.FC = () => {
         </p>
       </header>
 
-      <main className={`w-full transition-all duration-500 ${isNthLetterMode ? 'max-w-6xl' : 'max-w-4xl'}`}>
+      <main className="w-full transition-all duration-500 max-w-4xl">
         {!isGameStarted ? (
           <GameSetup onStartGame={startGame} />
         ) : (

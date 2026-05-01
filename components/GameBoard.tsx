@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ThemeCard, LetterCard, GameSettings } from '../types';
 import Card from './Card';
-import AiueoChart from './AiueoChart';
 import ShuffleIcon from './icons/ShuffleIcon';
 import Timer from './Timer';
 import PlayIcon from './icons/PlayIcon';
@@ -80,9 +79,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ themeCard, letterCard, onDraw, on
   const shouldShowCounter = themeType === 'genre' ||
                             themeType === 'character' ||
                             themeType === 'character_count' ||
-                            (themeType === 'random' && !!themeCard && themeCard.constraintType !== 'nth_letter');
-
-  const shouldShowAiueoChart = themeType === 'nth_letter' || (themeCard?.constraintType === 'nth_letter');
+                            themeType === 'random';
 
   return (
     <div className="flex flex-col items-center gap-4 animate-fade-in w-full">
@@ -130,19 +127,13 @@ const GameBoard: React.FC<GameBoardProps> = ({ themeCard, letterCard, onDraw, on
             <h2 className="text-2xl font-bold mb-2 text-stone-600 dark:text-stone-300">
               {themeCard?.constraintType === 'character' ? <>はじめの<ruby>文字<rt>もじ</rt></ruby></> : 
                themeCard?.constraintType === 'character_count' ? <><ruby>文字数<rt>もじすう</rt></ruby></> : 
-               themeCard?.constraintType === 'nth_letter' ? <>ねらう<ruby>順位<rt>じゅんい</rt></ruby></> : 
                <><ruby>文字<rt>もじ</rt></ruby></>}
             </h2>
             <Card card={letterCard} placeholderText={
-                themeCard?.constraintType === 'character_count' ? 'もじすう' :
-                themeCard?.constraintType === 'nth_letter' ? 'じゅんい' : 'もじ'
+                themeCard?.constraintType === 'character_count' ? 'もじすう' : 'もじ'
               } />
           </div>
         </div>
-        
-        {shouldShowAiueoChart && (
-          <AiueoChart />
-        )}
       </div>
       
       {shouldShowCounter && (
